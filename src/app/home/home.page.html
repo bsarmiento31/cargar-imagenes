@@ -1,14 +1,44 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="dark">
     <ion-title>
-      Ionic Blank
+      App de imagenes
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <div class="ion-padding">
-    The world is your oyster.
-    <p>If you get lost, the <a target="_blank" rel="noopener" href="https://ionicframework.com/docs/">docs</a> will be your guide.</p>
-  </div>
+
+    <ion-card *ngFor="let post of _cap.imagenes"> 
+        <img [src]="post.img" />
+        <ion-card-header>
+          <ion-card-subtitle>Destination</ion-card-subtitle>
+          <ion-card-title>{{ post.titulo }}</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          Founded in 1829 on an isthmus between Lake Monona and Lake Mendota, Madison was named the capital of the Wisconsin Territory in 1836.
+        </ion-card-content>
+
+        <ion-row>
+          <ion-col text-right>
+              <ion-button color="primary" (click)="compartir(post)">Compartir
+                <ion-icon name="share-alt"></ion-icon> 
+              </ion-button>
+          </ion-col>
+        </ion-row>
+
+      </ion-card>
+
+    <ion-fab horizontal="end" vertical="bottom" slot="fixed">
+        <ion-fab-button (click)="mostrar_modal()" color="danger">
+          <ion-icon name="add"></ion-icon>
+        </ion-fab-button>
+      </ion-fab> 
+      <!--[disabled]="hayMas == false" esto no funciona bien con ionic 4(Mirar bien la documentacion)-->
+      <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)" >
+          <ion-infinite-scroll-content
+            loadingSpinner="bubbles"
+            loadingText="Loading more data...">
+          </ion-infinite-scroll-content>
+        </ion-infinite-scroll>
+ 
 </ion-content>
